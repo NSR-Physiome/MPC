@@ -1,0 +1,23 @@
+//%REPLACE  %CL% =("ShortCodeLibrary.mod")
+/* SHORT DESCRIPTION: Use A3comp to make adenosine to
+   inosine model for plasma, isf, cell.
+*/
+//%GET %CL% header("model=Ado2Ino3comp")
+//%INSERTSTART Ado2Ino3compModel
+//%REPLACE  %CL% =("ShortCodeLibrary.mod")
+//%GET %CL% odeDomains()
+//%REPLACE %S%=("Ado","Ino")
+//%REPLACE %reg%=("p","i","c")
+//%GET A3comp.mod A3compParmsVars("A1=%S%p","A2=%S%i","A3=%S%c",
+//%                    "Aout=%S%out","Ain=%S%in",
+//%                    "Vol1=Vp",  "Vol2=Vi",  "Vol3=Vc",
+//%                    "PSA12=PSg%S%","PSA23=PSpc%S%")
+real Gc = 15 ml/(g*min);
+//-----------------------------------------------------------------------------
+//%GET A3comp.mod A3compCalc("A1=%S%p","A2=%S%i","A3=%S%c","Aout=%S%out","Ain=%S%in",
+//%                    "Vol1=Vp",  "Vol2=Vi",  "Vol3=Vc",
+//%                    "PSA12=PSg%S%","PSA23=PSpc%S%")
+//%GET %CL% reactionCalc("A=Adoc","B=Inoc","V=Vc","G=Gc" )
+//%COLLECT("%S%%reg%:t");
+//%INSERTEND Ado2Ino3compModel 
+}

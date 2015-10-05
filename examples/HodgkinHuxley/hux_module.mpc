@@ -1,0 +1,37 @@
+// Model built from HH K+, Na+ channels, and NaK pump from Winslow, 1999
+import  nsrunit;
+unit conversion on;
+
+math huxley_modules {
+//%GET huxley_potassium.mod timeDomain()
+//%GET huxley_potassium.mod universalConsts()
+//%GET huxley_potassium.mod PotassiumChannel()
+//%GET huxley_sodium.mod SodiumChannel()
+//%GET NaKpump.mod NaKpump()
+//%GET huxley_leakage.mod LeakageCurrent()
+
+// Add relationships/dependencies between all of the modules:
+// Conc of ions on both sides of membrane link the modules together.
+ real Iion(t) = IK +INa + INaK +Il;  // Total ionic current
+ VV:t = if (clamp_0no_1yes = 0) (-minusI-Iion)/Cm else 0; // membrane potential
+
+ K_o = Kinit_o;  Na_o = Nainit_o;  // Assume extracellular conc is const 
+ K_i = Kinit_i;  Na_i = Nainit_i;  // Assume intracellular conc is const 
+
+/*  Use if want varying intracellular conc:
+ when (t=t.min) { K_i = Kinit_i; Na_i = Nainit_i; }
+ real Vcell = 3.8E-5 uL;            // Cell volume
+ real Vfcyto = 0.68 dimensionless;  // cyto vol fraction: cyto vol per cell vol (ml/ml)
+ real Vcyto uL;                     // Cytoplasm volume
+ Vcyto = Vcell * Vfcyto; 
+ real Acap = 1.534*10^(-4) cm^2;    // membrane capacitance area
+ real zK =1 dimensionless, zNa =1 dimensionless;   // Valency of ion, unitless
+ Na_i:t = -(Acap/(zNa*Vcyto*F))*(INa + INapump);
+ K_i:t = -(Acap/(zK*Vcyto*F))*(IK + IKpump);
+*/
+
+}
+
+
+
+
