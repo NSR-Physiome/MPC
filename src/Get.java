@@ -119,8 +119,12 @@ public class Get  {
 	        int nentities=(entity.size()-2)/2;
 	        for (int i=0; i<nentities; i++) {
 	        int ibegin=0;
+		//Get old name and new name
 	        String oldNam= entity.get(2*i+2);
 	        String newNam= entity.get(2*i+3);
+		//remove any leading or trailing whitespace
+		oldNam = oldNam.trim();
+		newNam = newNam.trim();
 	        while(  s.indexOf(oldNam, ibegin) > -1) {
 	            int j = s.indexOf(oldNam, ibegin);
 	            int iend = s.length();
@@ -135,22 +139,25 @@ public class Get  {
 	            s = r;
 	            if(inm==1) {ibegin+=1;}
 	            }
-	            else if( (j==0) && (io<iend) && validSeparator(s.charAt(j+io))) {// s is oldname +more
-	            r=newNam+s.substring(j+io,iend);
-	            ibegin = j+io;
-	            s=r;
-	            }
-	            else if(  (j>0) && (j+io<iend) && validSeparator(s.charAt(j-1)) && validSeparator(s.charAt(j+io))){// s is more+oldNam+more
-	            r = s.substring(0,j)+newNam+s.substring(j+io,iend);
-	            ibegin = j+inm-1;
-	            if(inm==1) {ibegin+=1;}
-	            s = r;
-	            }
-	            else if ( (j>0) && (j+io==iend) && validSeparator(s.charAt(j-1)) ) {//s is more+oldNam
-	            r=s.substring(0,j)+newNam;
-	            ibegin = j+inm;
-	            s = r;
-	            }
+	            else if( (j==0) && (io<iend) && validSeparator(s.charAt(j+io))) 
+			{// s is oldname +more
+			    r=newNam+s.substring(j+io,iend);
+			    ibegin = j+io;
+			    s=r;
+			}
+	            else if(  (j>0) && (j+io<iend) && validSeparator(s.charAt(j-1)) && validSeparator(s.charAt(j+io)))
+			{ // s is more+oldNam+more
+			    r = s.substring(0,j)+newNam+s.substring(j+io,iend);
+			    ibegin = j+inm-1;
+			    if(inm==1) {ibegin+=1;}
+			    s = r;
+			}
+	            else if ( (j>0) && (j+io==iend) && validSeparator(s.charAt(j-1)) ) 
+			{ //s is more+oldNam
+			    r=s.substring(0,j)+newNam;
+			    ibegin = j+inm;
+			    s = r;
+			}
 	            else { ibegin++;}
 	        }
 	        }
