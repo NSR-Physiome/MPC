@@ -108,11 +108,14 @@ public class Get  {
 	    //Read File Line By Line
 	    while ((s = br.readLine()) != null) {
 	    // add input line to ArrayList
-	    if ( (s.contains("//%START")) && s.contains(codeBlockName)) {
-	        atStart=true;
-	        continue;
-	    }
-	    if ( (s.contains("//%END"  )) && s.contains(codeBlockName)) atEnd=true;
+
+            // Need to differentiate between //%START SodiumChannel and //%START ExternalSodiumChannel
+		String[] words = s.split(" +"); // split s into separate identifiers)
+		if ( s.contains("//%START") && (words.length >1) && words[1].equals(codeBlockName) )  {
+			atStart=true;
+			continue;
+		    }
+		if ( s.contains("//%END") && (words.length >1) && words[1].equals(codeBlockName) ) atEnd = true;
 	    
 	    if(atStart && !atEnd) {
 	        // PROCESS CODE; ADD TO OUTPUT
@@ -162,7 +165,7 @@ public class Get  {
 	        }
 	        }
 	        if(atStart && !s.contains("//%START") || !s.contains(codeBlockName)) {
-	        code.add(s);
+		    code.add(s);
 	        }
 	    }
 	    }
