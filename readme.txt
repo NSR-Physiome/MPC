@@ -31,7 +31,7 @@ Directories:
  2. cd to the MPC java source file dir.
  2. javac -d buildDir *.java   <-- compile code into a package 'ModConstruct'
  3. cd buildDir/
- 4. jar cvfm MPC.jar manifest.mf ModConstruct
+ 4. jar cvfm MPC.jar ../manifest.mf ModConstruct
 added manifest
 adding: ModConstruct/(in = 0) (out= 0)(stored 0%)
 adding: ModConstruct/MPC.class(in = 3468) (out= 2001)(deflated 42%)

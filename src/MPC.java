@@ -26,7 +26,6 @@ class MPC {
 		System.out.println("MPC presource file must end in .mpc");
 		System.exit(0);
 	    }
-	    
 	    String gather = new String();
 	    // Open the file that is the first  command line parameter
 	    FileInputStream istream = new FileInputStream(args[0]);
