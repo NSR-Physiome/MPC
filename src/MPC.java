@@ -17,16 +17,15 @@ package ModConstruct;
 import java.io.*;
 import java.util.*;
 class MPC {
-    ArrayList<String> inlines;     // Holds .mpc input file lines for processing
-    ArrayList<String> finalCode;   // Holds final MML code 
+    private ArrayList<String> inlines;     // Holds .mpc input file lines for processing
+    private ArrayList<String> finalCode;   // Holds final MML code 
     String outputFile;
 
     public MPC(ArrayList<String> mpcLines, String outFile) {
-	try {
+	try {	    
 	this.outputFile = new String(outFile);
 	this.inlines = new ArrayList<String>(mpcLines);	  
 	ArrayList<String>gotCode = new ArrayList<String>();
-
 	boolean doneYet=false;
 	while(!doneYet) {  // Continue to process
 	    // Compress //% continuation directives to single lines
@@ -77,13 +76,32 @@ class MPC {
 	    if(s.contains("//%INSERTEND")) collectedCode.set(i,s.replace("//%INSERTEND","//%END"));
 	}   
 	this.finalCode = new ArrayList<String>(collectedCode);	
-	// Write out assembled code
-	this.outToFile();
 	} catch(Exception e){//Catch exception if any
 	    System.err.println("Error: " + e.getMessage());
 	}
     }
 
+    // Returns final, constructed model
+    public ArrayList<String> getFinalCode() {
+	return finalCode;
+    }
+
+    public void outToFile() 
+    {  // Write out assembled code
+   	try {
+	    FileWriter ostream = new FileWriter(outputFile);
+	    BufferedWriter out = new BufferedWriter(ostream);
+	    for (int i=0; i<finalCode.size(); i++) {
+	        out.write( finalCode.get(i) + "\n");
+	    }
+	    out.close();
+        }catch (IOException e){//Catch IO Exception if any
+	    System.err.println("Error: Output model file name or location invalid.");
+	}
+ 	 catch (Exception e){//Catch exception if any
+	    System.err.println("Error: " + e.getMessage());
+	}
+    }
 
     public static void main(String args[]) {
 	try{
@@ -122,24 +140,13 @@ class MPC {
 	    //Close the input stream
 	    in.close();
 	    MPC buildModel = new MPC(inlines, outfile);
+	    // Write out assembled code
+	     buildModel.outToFile();
 	} catch (Exception e){//Catch exception if any
 	    System.err.println("Error: " + e.getMessage());
 	}
     }
    
-    public void outToFile() 
-    {  // Write out assembled code
-   	try {
-	    FileWriter ostream = new FileWriter(outputFile);
-	    BufferedWriter out = new BufferedWriter(ostream);
-	    for (int i=0; i<finalCode.size(); i++) {
-	        out.write( finalCode.get(i) + "\n");
-	    }
-	    out.close();
-        }catch (Exception e){//Catch exception if any
-	    System.err.println("Error: " + e.getMessage());
-	}
-    }
 
 }
 
