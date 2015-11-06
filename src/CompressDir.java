@@ -1,6 +1,7 @@
 /* COPYRIGHT AND REQUEST FOR ACKNOWLEDGMENT OF USE:   
   Copyright (C) 2015 University of Washington. From the National Simulation Resource,  
-  Director J. B. Bassingthwaighte, Department of Bioengineering, University of Washington, Seattle WA 98195-5061. 
+  Director J. B. Bassingthwaighte, Department of Bioengineering, 
+  University of Washington, Seattle WA 98195-5061. 
   Academic use is unrestricted. Software may be copied so long as this copyright notice is included.
 
   This software was developed with support from NIH grants HL088516 and HL073598, NIBIB grant BE08417 
@@ -89,6 +90,7 @@ public class CompressDir  {
 	}
 	return cnt;
     }
-}
+
+  }
 
 

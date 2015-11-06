@@ -1,0 +1,18 @@
+// Test directive names can be found if one contains the other
+import  nsrunit;
+unit conversion on;
+
+math huxley_modules {
+//%GET huxley_potassium.mod timeDomain()
+//%GET huxley_potassium.mod universalConsts()
+//%GET huxley_potassium.mod PotassiumChannel()
+//%GET huxley_sodium_name.mod SodiumChanneluniversalConsts()
+//%GET huxley_sodium_name.mod externalInputsSodiumChannel()
+//%GET huxley_sodium_name.mod SodiumChannel()
+
+
+}
+
+
+
+
