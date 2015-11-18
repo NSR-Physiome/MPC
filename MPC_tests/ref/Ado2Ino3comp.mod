@@ -40,13 +40,13 @@ Adop:t = (Flow/Vp)*(Adoin-Adop)
        +PSgAdo/Vp*(Adoi-Adop);
 Adoi:t = PSgAdo/Vi*(Adop-Adoi)
        +PSpcAdo/Vi*(Adoc-Adoi);
-Adoc:t = PSpcAdo/Vc*(Adoi-Adoc)
-         -Gc/Vc*Adoc;
 Inoout =Inop;
 Inop:t = (Flow/Vp)*(Inoin-Inop)
        +PSgIno/Vp*(Inoi-Inop);
 Inoi:t = PSgIno/Vi*(Inop-Inoi)
        +PSpcIno/Vi*(Inoc-Inoi);
+Adoc:t = PSpcAdo/Vc*(Adoi-Adoc)
+         -Gc/Vc*Adoc;
 Inoc:t = PSpcIno/Vc*(Inoi-Inoc)
          +Gc/Vc*Adoc;
 //%END Ado2Ino3compModel 

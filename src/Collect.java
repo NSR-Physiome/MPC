@@ -1,12 +1,12 @@
 /* COPYRIGHT AND REQUEST FOR ACKNOWLEDGMENT OF USE:   
   Copyright (C) 2015 University of Washington. From the National Simulation Resource,  
-  Director J. B. Bassingthwaighte, Department of Bioengineering, University of Washington, Seattle WA 98195-5061. 
+  Director J. B. Bassingthwaighte, Department of Bioengineering, University of Washington,
+  Seattle WA 98195-5061. 
   Academic use is unrestricted. Software may be copied so long as this copyright notice is included.
-
-  This software was developed with support from NIH grants HL088516 and HL073598, NIBIB grant BE08417 
-  and the Virtual Physiological Rat program GM094503 (PI: D.A.Beard). Please cite this grant in any 
-  publication for which this software is used and send an email with the citation and, if possible, 
-  a PDF file of the paper to: staff@physiome.org.  */
+  This software was developed with support from NIH grants HL088516 and HL073598, NIBIB grant BE08417,
+  the Virtual Physiological Rat program GM094503 (PI: D.A.Beard) and the Cardiac Energy Grid HL199122. 
+  Please cite these grants in any publication for which this software is used and send an email 
+  with the citation and, if possible, a PDF file of the paper to: staff@physiome.org.  */
 
 package ModConstruct;
 
@@ -27,7 +27,7 @@ public class Collect  {
 	String remove ="zZzzZZ";
 	String oneComment="//";
 	ArrayList<String>collect=new ArrayList<String>(ilines);
-	
+
 	// Find the Collect directive
 	for (int i=0; i<collect.size(); i++) {
 	    String s = collect.get(i);
@@ -60,10 +60,10 @@ public class Collect  {
 		    for (int ioff=0; ioff<match.length(); ioff++) {
 			offset=offset+" ";
 		    }
-		    
 		    // flag the collect directive with the remove string
 		    if(items==0) {collect.set(i,remove);}
 		    int jsave=-1;
+		    int jsaveLast=-1; // Save Last occurance of collect string
 		    int npieces=0;
 		    ArrayList<String>code = new ArrayList<String>();
 		    
@@ -78,7 +78,8 @@ public class Collect  {
 			    if(match.equals(col.substring(0,ieq).trim())) {
 				npieces++;
 				if(npieces==1) {  // first collected piece
-				    jsave=j;
+				    jsave=j;   // position of first occurance saved
+				    jsaveLast = j; 
 				    String s1 =match+" = "+col.substring(ieq+1,col.length()).trim();
 				    collect.set(j,remove);
 				    code.add(s1);
@@ -89,13 +90,13 @@ public class Collect  {
 					collect.set(j,remove);
 				    }
 				} else { // additional collected pieces
-				    
+				    jsaveLast = j;  // want to insert collected code at last occurance
 				    collect.set(j,remove);
 				    col = col.substring(ieq+1,col.length()).trim();
 				    if(!col.substring(0,1).equals("-") &&
 				    !col.substring(0,1).equals("+") ) col = "+"+col;
 				    col = offset+"   "+col;
-				    code.add(col);
+  				    code.add(col);
 				    while(!col.contains(semicolon)) {
 					npieces++;
 					col =offset+(String)collect.get(++j).trim();
@@ -110,14 +111,16 @@ public class Collect  {
 		    }
 		    if(npieces>0 && jsave>=0) { // collect.set(jsave,composit);
 			jsave--;
+			jsaveLast--;
 			for (int jcode=0; jcode<code.size(); jcode++) {
 			    String f = code.get(jcode);
 			    if (jcode<code.size()-1) {
 				f =f.replaceAll(";","");
-				collect.add(++jsave,f);
+				//	collect.add(++jsave,f);  
+				collect.add(++jsaveLast,f);  // Use jsaveLast as insertion point.
 			    } else {
 				if(!f.contains(";")) f=f+";";
-				collect.add(++jsave,f);
+				collect.add(++jsaveLast,f);
 			    }
 			    
 			}
