@@ -1,5 +1,5 @@
 
-//%REPLACE %CL% =("CodeLibrary.mod") // Library to get code from
+//%REPLACE %CL% =("F1000_CodeLibrary.mod") // Library to get code from
 //%REPLACE (%N%=("1","2"), %vol%=("0.05","0.05") ) // two compartments with volumes
 //%REPLACE (%AB%=("A","B","C"), %PS3%=("6","5","4"))// 3 species, PS init values
 import nsrunit; unit conversion on; // Use SI units
