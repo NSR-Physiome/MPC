@@ -1,0 +1,30 @@
+
+//%REPLACE %CL% =("CodeLibrary.mod") // Library to get code from
+//%REPLACE (%N%=("1","2"), %vol%=("0.05","0.05") ) // two compartments with volumes
+//%REPLACE (%AB%=("A","B","C"), %PS3%=("6","5","4"))// 3 species, PS init values
+import nsrunit; unit conversion on; // Use SI units
+math example {                      // model declaration
+// INDEPENDENT VARIABLES 
+//%GET %CL% odeDomains()          // Get time domain from code library
+//%INSERTSTART a2bParmsVars       // Specify parameters and variables section
+// PARAMETERS 
+real Flow = 1 ml/(g*min);	    // Flow rate 
+real PS%AB%12 = %PS3% ml/(g*min);   // Conductances: PSA12,PSB12,PSC12
+real V%N% = %vol% ml/g;		    // Volume of V1, V2 
+extern real %AB%in(t) mM;	    // Inflowing concentrations 
+// DEPENDENT VARIABLES 
+real %AB%%N%(t) mM;		    // A1,A2,B1,B2,C1,C2 
+// INITIAL CONDITIONS (IC's) 
+when(t=t.min)  %AB%%N%=0;         // Defines IC's for the ODEs
+//%INSERTEND a2bParmsVars         // End parameters and variables section
+//%INSERTSTART a2bCalc            // Specify calculations section
+// ODE CALCULATIONS 
+//%GET %CL% reactionCalc  ("A=A2","B=B2","V=V2","G=Ga2b") 
+//%GET %CL% MMreactionCalc  ("A=B2","B=C2","V=V2","G=Gb2c", "KmA=KmB2", 
+//%                "VmaxA = VmaxB2", "KmA = KmB2") // MM reaction for 3rd species
+//%GET %CL% flowCalc  ("Cin=%AB%in","C=%AB%1","V=V1","F=Flow","D=D%AB%1") 
+//%GET %CL% exchangeCalc ("C1=%AB%1","PS=PS%AB%12","C2=%AB%2")  
+//%COLLECT("%AB%%N%:t")     // Group all ODE calculations for a species together
+//%INSERTEND a2bCalc
+}  // curly bracket ends model
+
