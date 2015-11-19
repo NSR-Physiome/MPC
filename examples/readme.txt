@@ -13,16 +13,16 @@
 
 
  *******************************************
- Example referenced in Bioinformatics application note (Submitted Nov 2015):
- - Bioinformatics_example.mpc <-- Example.mpc from paper.
-   - Bioinformatics_CodeLibrary.mod <--- Library used by Bioinformatics_example.mpc to generate JSim model.
+ Example referenced in F1000 software paper (Submitted Nov 2015):
+ - F1000_example.mpc <-- Example.mpc from paper.
+   - F1000_CodeLibrary.mod <--- Library used by F1000_example.mpc to generate JSim model.
 
  Generate JSim model:
-   1. 'java -jar ../lib/MPC.jar Bioinformatics_example.mpc' --> generates 'Bioinformatics.mod' file
-   2. Then open up with JSim (http://www.physiome.org/jsim/): 'jsim -f Bioinformatics_example.mod'
+   1. 'java -jar ../lib/MPC.jar F1000_example.mpc' --> generates 'F1000_example.mod' file
+   2. Then open up with JSim (http://www.physiome.org/jsim/): 'jsim -f F1000_example.mod'
 
- - Bioinformatics_example.proj  <--- Two compartment MPC example imported and made to run in JSim with plot (fig 2 of Bioinformatics paper).
-   To run, install JSim (http://www.physiome.org/jsim/), then open Bioinformatics_example.proj with JSim. 
+ - F1000_example.proj  <--- Two compartment MPC example imported and made to run in JSim with plot (fig 2 of F1000 paper).
+   To run, install JSim (http://www.physiome.org/jsim/), then open F1000_example.proj with JSim. 
   
  *******************************************
  Examples referenced in MPC_details_date.pdf:
