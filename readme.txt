@@ -8,11 +8,12 @@ REQUIREMENTS:
 ****************************************************************************
 
 Directories:
- ../examples/ --> Contains short examples and draft paper to get you started.
+ ../examples/ --> Contains short examples and example from submitted paper to get you started.
 
  ../lib/ --> java jar file containing all of the MPC java classes (used to run the examples).
 
  ../src/ --> java src files for MPC program.
+
 
 -- Run examples (linux example):
    If MPC is installed in ~/Desktop/MPC/, 
@@ -26,6 +27,8 @@ Directories:
    
    NOTE: currently, Working dir must be set to loction of .mpc file.
 
+
+*****************************************************************************
 -- Build from source (linux example below):
  1. Create a build directory: mkdir buildDir
  2. cd to the MPC java source file dir.
