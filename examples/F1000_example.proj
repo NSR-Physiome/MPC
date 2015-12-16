@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<JSim version="2.15">
-  <project name="proj2">
+<JSim version="2.16">
+  <project name="proj1">
     <plotpage name="plotpage_1">
       <control name="desc" value=""/>
       <control name="confPlot" value="0"/>
@@ -31,7 +31,7 @@
         <control name="legendX" value=".9220339"/>
         <control name="legendY" value=".86440678"/>
         <control name="style" value="XY plot"/>
-        <control name="confItem" value="4"/>
+        <control name="confItem" value="6"/>
         <control name="confAxis" value="X"/>
         <plotaxis name="xaxis">
           <control name="log" value="linear"/>
@@ -144,10 +144,10 @@
         <plotitem name="item6">
           <control name="src" value="TwoCompExampMPC"/>
           <control name="expr" value="Ain/6"/>
-          <control name="color" value="indigo"/>
+          <control name="color" value="black"/>
           <control name="size" value="small"/>
           <control name="shape" value="none"/>
-          <control name="line" value="dotdotdotdash"/>
+          <control name="line" value="solid"/>
           <control name="thickness" value="medium"/>
           <control name="colorMap" value="none"/>
           <control name="palette" value="heat"/>
@@ -163,7 +163,15 @@
       <control name="easelVariant" value=""/>
       <control name="notes">Legend:
  Flow of A into a 2-compartment system where A --&gt; B --&gt; C in compartment 2. Parameters are: V1 = V2 = 0.05 ml/g, F = 1, PSA= 6, PSB = 5, PSC = 4, Ga2b = 5 all in ml/(g*min), KmB2 = 1 mM, and VmaxB2 = 2 umol/(g*min)</control>
-      <control name="modelSource">import nsrunit; unit conversion on; // Use SI units
+      <control name="modelSource">
+// MODEL NAME: F1000_example
+// SHORT DESCRIPTION: Example JSim model generated from Modular Program Constructor (MPC).
+// three species (A, B, C), two compartment model with two reactions in compartment two with 
+// species concentrations described by ordinary differential equations (ODEs). 
+
+
+
+import nsrunit; unit conversion on; // Use SI units
 math example {                      // model declaration
 // INDEPENDENT VARIABLES 
 realDomain t s; t.min=0; t.max=30; t.delta = 0.1;
@@ -208,8 +216,50 @@ C1:t = (Flow/V1)*(Cin-C1) +PSC12/V1*(C2-C1);
 //%END a2bCalc
 }  // curly bracket ends model
 
-// This MML file generated from MPCpaper_example.mpc using MPC.
-</control>
+// This MML file generated from F1000_example.mpc using MPC.
+
+/*
+
+ DETAILED DESCRIPTION:
+ This is the example used to reproduce Figure 2 (Solution to two compartment model 
+ generated from MPC.) of Jardine et al., 2015 paper describing the MPC software.
+  
+
+ SHORTCOMINGS/GENERAL COMMENTS:
+	- Specific inadequacies or next level steps
+ 
+ KEY WORDS: modular modeling, JSim, computational biology, compartmental modeling, MPC,
+ enzyme reactions   
+
+ REFERENCES:
+ Jardine B, Raymond G and Bassingthwaighte J. Semi-automated Modular Program Constructor 
+ for physiological modeling: Building cell and organ models 
+ [version 1; referees: awaiting peer review] F1000Research 2015, 4:1461 
+ (doi: 10.12688/f1000research.7476.1)
+
+ Butterworth E, Jardine BE, Raymond GM, Neal ML, Bassingthwaighte JB. 
+ JSim, an open-source modeling system for data analysis [v3; ref status: indexed, http://f1000r.es/3n0] 
+ F1000Research 2014, 2:288 (doi: 10.12688/f1000research.2-288.v3) 
+
+  REVISION HISTORY:
+	Original Author : BEJ  Date: 15/dec/15
+	
+
+ COPYRIGHT AND REQUEST FOR ACKNOWLEDGMENT OF USE:   
+  Copyright (C) 1999-2015 University of Washington. From the National Simulation Resource,  
+  Director J. B. Bassingthwaighte, Department of Bioengineering, University of Washington, Seattle WA 98195-5061. 
+  Academic use is unrestricted. Software may be copied so long as this copyright notice is included.
+
+  When citing JSim please use this reference: Butterworth E, Jardine BE, Raymond GM, Neal ML, Bassingthwaighte JB. 
+  JSim, an open-source modeling system for data analysis [v3; ref status: indexed, http://f1000r.es/3n0] 
+  F1000Research 2014, 2:288 (doi: 10.12688/f1000research.2-288.v3)  
+
+  This software was developed with support from NIH grants HL088516 and HL073598, NIBIB grant BE08417 
+  and the Virtual Physiological Rat program GM094503 (PI: D.A.Beard). Please cite this grant in any 
+  publication for which this software is used and send an email with the citation and, if possible, 
+  a PDF file of the paper to: staff@physiome.org. 
+
+*/</control>
       <control name="sourceType" value="mml"/>
       <control name="parSetName" value="Par1"/>
       <control name="built" value="true"/>
@@ -776,6 +826,7 @@ C1:t = (Flow/V1)*(Cin-C1) +PSC12/V1*(C2-C1);
         <control name="alg" value="simplex"/>
         <control name="maxCalls" value="50"/>
         <control name="maxIters" value="10"/>
+        <control name="maxStaticIters" value="0"/>
         <control name="errTol" value=".001"/>
         <control name="stepTol" value="1E-6"/>
         <control name="gradTol" value="1E-6"/>
