@@ -8,7 +8,7 @@ REQUIREMENTS:
 ****************************************************************************
 
 Directories:
- ../examples/ --> Contains short examples and example from submitted paper to get you started.
+ ../examples/ --> Contains short examples and example from submitted paper at F1000Research to get you started.
 
  ../lib/ --> java jar file (requires Java 1.7 or higher runtime to execute) containing all of the MPC java classes (used to run the examples).
 
@@ -29,7 +29,7 @@ Directories:
 
 
 *****************************************************************************
--- Build from source (linux example below):
+-- Build from source, requires a Java jdk be installed on your computer. (linux example below):
  1. Create a build directory: mkdir buildDir
  2. cd to the MPC java source file dir.
  2. javac -d buildDir *.java   <-- compile code into a package 'ModConstruct'
