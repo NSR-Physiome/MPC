@@ -10,7 +10,7 @@ REQUIREMENTS:
 Directories:
  ../examples/ --> Contains short examples and example from submitted paper to get you started.
 
- ../lib/ --> java jar file containing all of the MPC java classes (used to run the examples).
+ ../lib/ --> java jar file (requires Java 1.7 or higher runtime to execute) containing all of the MPC java classes (used to run the examples).
 
  ../src/ --> java src files for MPC program.
 
