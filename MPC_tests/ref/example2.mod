@@ -51,4 +51,4 @@ C2:t = PSC12/V2*(C1-C2)
 //%END a2bCalc
 }  // curly bracket ends model
 
-// This MML file generated from example2.mpc using MPC.
+// This MML file generated from example2.mpc using MPC v1.0.

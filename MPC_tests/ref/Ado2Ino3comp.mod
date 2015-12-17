@@ -51,4 +51,4 @@ Inoc:t = PSpcIno/Vc*(Inoi-Inoc)
          +Gc/Vc*Adoc;
 //%END Ado2Ino3compModel 
 }
-// This MML file generated from Ado2Ino3comp.mpc using MPC.
+// This MML file generated from Ado2Ino3comp.mpc using MPC v1.0.

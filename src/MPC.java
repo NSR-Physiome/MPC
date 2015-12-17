@@ -20,6 +20,7 @@ class MPC {
     private ArrayList<String> inlines;     // Holds .mpc input file lines for processing
     private ArrayList<String> finalCode;   // Holds final MML code 
     String outputFile;
+    public static final String MPC_VERSION = "v1.0";
 
     public MPC(ArrayList<String> mpcLines, String outFile) {
 	try {	    
@@ -108,7 +109,7 @@ class MPC {
 	    int num=args.length;
 	    if( (num==1) ||(num==2) ) {
 	    } else {
-		System.out.println("Needs at least 1 argument: input fileName.");
+		System.out.println("MPC "+MPC_VERSION+" needs at least 1 argument: input fileName.");
 		System.exit(0);
 	    }
 	    
@@ -136,7 +137,7 @@ class MPC {
 		// add input line to ArrayList
 		inlines.add(strLine);
 	    }
-	    inlines.add("// This MML file generated from "+args[0]+" using MPC.");
+	    inlines.add("// This MML file generated from "+args[0]+" using MPC "+MPC_VERSION+".");
 	    //Close the input stream
 	    in.close();
 	    MPC buildModel = new MPC(inlines, outfile);

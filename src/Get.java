@@ -57,6 +57,7 @@ public class Get  {
 	}
 	return copy1;
 	}
+
 	public static ArrayList<String> getCode (String g) {
 	// PROCESS THE GET DIRECTIVE
 	ArrayList<String>entity = new ArrayList<String>();
@@ -99,8 +100,7 @@ public class Get  {
 	    boolean atStart = false;
 	    boolean atEnd=false;
 	    // Open the file that is the first  command line parameter
-	    FileInputStream istream = new FileInputStream(fileName);
-	    
+	    FileInputStream istream = new FileInputStream(fileName);	    
 	    // Get the object of DataInputStream
 	    DataInputStream in = new DataInputStream(istream);
 	    BufferedReader br = new BufferedReader(new InputStreamReader(in));
@@ -110,12 +110,14 @@ public class Get  {
 	    // add input line to ArrayList
 
             // Need to differentiate between //%START SodiumChannel and //%START ExternalSodiumChannel
-		String[] words = s.split(" +"); // split s into separate identifiers)
+		String[] words = s.split("\\s+"); // split s into separate identifiers based on whitespace
 		if ( s.contains("//%START") && (words.length >1) && words[1].equals(codeBlockName) )  {
 			atStart=true;
 			continue;
-		    }
-		if ( s.contains("//%END") && (words.length >1) && words[1].equals(codeBlockName) ) atEnd = true;
+	        }
+		if ( s.contains("//%END") && (words.length >1) && words[1].equals(codeBlockName) ) {
+		    atEnd = true;
+		}
 	    
 	    if(atStart && !atEnd) {
 	        // PROCESS CODE; ADD TO OUTPUT

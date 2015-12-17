@@ -158,4 +158,4 @@ math huxley_modules {
  K_i:t = -(Acap/(zK*Vcyto*F))*(IK + IKpump);
 */
 }
-// This MML file generated from hux_module.mpc using MPC.
+// This MML file generated from hux_module.mpc using MPC v1.0.

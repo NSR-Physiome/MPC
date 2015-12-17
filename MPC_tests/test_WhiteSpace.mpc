@@ -1,0 +1,23 @@
+// Build up Hinch 2004 model with the following modules:
+// Tab in mod file  block name line causes error
+
+//%REPLACE %CaRU% =("Hinch2004_CaRU.mod")
+
+
+//%GET %CaRU% units()
+
+math hinch2004modules {
+//%GET %CaRU% timeDomain()
+//%GET %CaRU% universalConsts()
+//%GET %CaRU% externalInputs()
+
+
+// Put the currents together and external conc dependencies, etc:
+// Ca2+ current going into the cytoplasm is positive.
+  real Iion(t) uA/cm^2;
+       Iion  = ((I_RyR+I_LCC+ I_TRPN+ I_SR - I_pCa+ I_CaB -I_SERCA)*F_Ca* - (I_NaCa*F))*V_myo/Area_mem; // I_NaCa: 2*F?
+  VV:t = if (clamp_0no_1yes = 0) (-minusI-Iion)/Cm else 0; // universal var
+Ca_i:t = betaCDMA*(I_RyR+I_LCC+ I_TRPN+ I_SR -I_NaCa - I_pCa+ I_CaB -I_SERCA );
+Ca_SR:t = (V_myo/VSR)* (-RyR +I_SERCA - I_SR); // signs??
+
+}

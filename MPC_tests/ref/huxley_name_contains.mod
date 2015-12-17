@@ -96,4 +96,4 @@ math huxley_modules {
    m:t = phi*(alpham*(1-m)-betam*m);
    h:t = phi*(alphah*(1-h)-betah*h);
 }
-// This MML file generated from huxley_name_contains.mpc using MPC.
+// This MML file generated from huxley_name_contains.mpc using MPC v1.0.
