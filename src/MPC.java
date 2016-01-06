@@ -16,7 +16,7 @@ package ModConstruct;
 
 import java.io.*;
 import java.util.*;
-class MPC {
+public class MPC {
     private ArrayList<String> inlines;     // Holds .mpc input file lines for processing
     private ArrayList<String> finalCode;   // Holds final MML code 
     String outputFile;
