@@ -1,8 +1,8 @@
 //%REPLACE ( %Species%=("Ado","Ino"),
 //%          %G%=("-Gp","Gp") )
-//%GET example.mpc flowCalc( "C=%Species%", "F=Flow",
+//%GET example_intro.mpc flowCalc( "C=%Species%", "F=Flow",
 //% "V=Vp", "Cin=%Species%in" )
-//%GET example.mpc conversionCalc( "C=%Species%", "V=Vp",
+//%GET example_intro.mpc conversionCalc( "C=%Species%", "V=Vp",
 //%                                "G=%G%", "D=Ado" )
 //%COLLECT("%Species%:t")
 
