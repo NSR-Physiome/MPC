@@ -1,0 +1,77 @@
+/* SHORT DESCRIPTION: A modified version of A2B with
+   relabeling the two species for adenosine (Ado)
+   and inosine (Ino) in three regions (plasma (p), 
+   interstitial fluid region (i) and parenchymal cell 
+   (c) ) with addition of competitive transporter for 
+   Ado and Ino on cell membrane and enzyme conversion 
+   of Ado to Ino.
+*/
+import nsrunit; unit conversion on;
+math Ado2Ino { 
+//%INSERTSTART ado2inoModel
+//%REPLACE  %CL% =("CodeLibrary.mod")
+//%GET %CL% pdeDomains()
+
+//%GET A2B.mod a2bParmsVars("A1=Adop","A2=Adoi","A3=Adoc","Aout=Adoout","Ain=Adoin",
+//%                    "B1=Inop","B2=Inoi","B3=Inoc","Bout=Inoout","Bin=Inoin",
+//%                    "V1=Vp",  "V2=Vi",  "V3=Vc",
+//%                    "DA1=DpAdo","DA2=DiAdo","DA3=DcAdo",
+//%                    "DB1=DpIno","DB2=DiIno","DB3=DcIno",
+//%                    "PSA12=PSgAdo","PSB12=PSgIno",
+//%                    "PSA23=PSpcAdo","PSB23=PSpcIno",
+//%                    "Ga2b=Gado2ino")
+
+//%REPLACE (%s1%=("i","c"), %s2%=("c","i") ) 
+//%REPLACE (%e% =("Enz","ECmplx"),%eic%=("Etot","ZEROM") )
+//%REPLACE %S%=("Ado","Ino")
+// ADDITIONAL PARAMETERS
+private real ZEROT = 0 mmol/cm^2;// Removes Initial Conditions from Parameter List
+private real ZEROM = 0 mM;	// Removes Initial Conditions from Parameter List
+//     ENZYME CONVERSION PARAMETERS
+//%GET %CL% enzymeParms()
+//     COMPETITIVE TRANSPORTER PARAMETERS
+real Ttot	= 7e-6 mmol/cm^2;	// Transporter density on membrane
+real Kd%S%%s1%	= 1 mM;		// Equilib Dissoc const 
+real kon%S%%s1%	= 10 mM^(-1)*s^(-1);	// Bind rate 
+real kof%S%%s1%	= Kd%S%%s1%*kon%S%%s1%;		// Dissoc rate 
+real S 		= 1 cm^2/g;		// Surface area
+real SoV%s1% 	= S/V%s1%;		// Surface to volume ratio
+real kT%s1%2%s2% 	= 100 sec^(-1);	// Flip rate 
+real kT%S%%s1%2%s2%	 = 100 sec^(-1);// Flip rate ;
+// DEPENDENT VARIABLES
+real %e%(t,x) mM;		// Concentration of %e% in Vc
+real T%S%%s1%(t,x) mmol/cm^2;		// Transporter complex
+real T%s1%(t,x) mmol/cm^2;		// Free transporter
+// INITIAL CONDITIONS
+when(t=t.min) %e%	= %eic%;
+when(t=t.min) T%S%%s1% 	= ZEROT;
+when(t=t.min) T%s1%	= Ttot/2;
+// BOUNDARY CONDITIONS
+//%GET %CL% noFlowBC ("C=%e%")
+//%GET %CL% noFlowBC ("C=T%S%%s1%")
+//%GET %CL% noFlowBC ("C=T%s1%")
+
+//%GET A2B.mod a2bCalc("A1=Adop","A2=Adoi","A3=Adoc","Aout=Adoout","Ain=Adoin",
+//%                    "B1=Inop","B2=Inoi","B3=Inoc","Bout=InoOut","Bin=Inoin",
+//%                    "V1=Vp",  "V2=Vi",  "V3=Vc",
+//%                    "DA1=DpAdo","DA2=DiAdo","DA3=DcAdo",
+//%                    "DB1=DpIno","DB2=DiIno","DB3=DcIno",
+//%                    "PSA12=PSgAdo","PSB12=PSgIno",
+//%                    "PSA23=PSpcAdo","PSB23=PSpcIno",
+//%                    "Ga2b=Gado2ino")
+// PDE CALCULATIONS
+//%GET %CL% onOffMembraneCalc("M=%S%%s1%","B=T%s1%","MB=T%S%%s1%",
+//%    "kon=kon%S%%s1%","kof=kof%S%%s1%","SoV=SoV%s1%")
+//%GET %CL% flipa2bCalc("a=T%S%i","b=T%S%c",
+//%                     "ka2b=kT%S%i2c","kb2a=kT%S%c2i")
+//%GET %CL% flipa2bCalc("a=Ti","b=Tc",
+//%                     "ka2b=kTi2c","kb2a=kTc2i")
+//%GET %CL% enzymeCalc("A=Adoc","B=Inoc","Enzyme=Enz",
+//%                    "Complex=ECmplx")
+//%COLLECT("%S%%s2%:t","%e%:t","T%S%%s1%:t","T%s1%:t")
+//%INSERTEND ado2inoModel
+//%ENDREPLACE
+//%ENDREPLACE
+//%ENDREPLACE
+//%ENDREPLACE
+}

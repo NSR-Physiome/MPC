@@ -1,0 +1,45 @@
+//%SETGLOBALVAL %N%=("3")
+/* SHORT DESCRIPTION: A two species (A and B) model in
+%N% regions (1=flowing, 2 and 3 stagnant) with A->B
+in region %N% */
+import nsrunit; unit conversion on;
+math A2B { 
+//%REPLACE %CL% =("CodeLibrary.mod")
+//%REPLACE (%n%=("#1#%N%"), %vol%=("0.05","0.15","0.60") )
+//%REPLACE (%P%=("12","23"), %s1%=("#1#2"), 
+//% %s2%=("#2#3"), %R%=("3","5") )
+//%REPLACE %AB%=("A","B")
+// INDEPENDENT VARIABLES
+//%GET %CL% pdeDomains()
+//%INSERTSTART a2bParmsVars
+// PARAMETERS
+real Flow = 1 ml/(g*min); // Flow rate 
+real PS%AB%%P% = %R% ml/(g*min); // Exchg rate 
+real Ga2b = 10 ml/(g*min); // Conversion rate 
+real V%n% = %vol% ml/g; // Volume of V%n%
+real D%AB%%n% = 1e-6 cm^2/sec; // Diffusion coeff 
+extern real %AB%in(t) mM; // Inflowing concentration
+// DEPENDENT VARIABLES
+real %AB%out(t) mM; // Outflowing concentration 
+real %AB%%n%(t,x) mM; // Concentration 
+// INITIAL CONDITIONS
+when(t=t.min) %AB%%n%=0;
+// BOUNDARY CONDITIONS
+//%GET %CL% flowBC ("C=%AB%1","V=V1","F=Flow","D=D%AB%1",
+//% "Cin=%AB%in","Cout=%AB%out")
+//%GET %CL% noFlowBC ("C=%AB%%s2%","D=%AB%%s2%")
+//%INSERTEND a2bParmsVars
+//%INSERTSTART a2bCalc
+// PDE CALCULATIONS
+//%GET %CL% flowDiffCalc ("C=%AB%1","V=V1","F=Flow","D=D%AB%1")
+//%GET %CL% diffusionCalc ("C=%AB%%s2%","D=D%AB%%s2%");
+//%GET %CL% exchangeCalc ("C1=%AB%%s1%","V1=V%s1%","PS=PS%AB%%P%",
+//% "C2=%AB%%s2%","V2=V%s2%")
+//%GET %CL% reactionCalc ("A=A3","B=B3","V=V3","G=Ga2b")
+//%COLLECT("%AB%%n%:t")
+//%INSERTEND a2bCalc
+//%ENDREPLACE
+//%ENDREPLACE
+//%ENDREPLACE
+//%ENDREPLACE
+}

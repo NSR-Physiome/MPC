@@ -1,0 +1,45 @@
+/* MODEL NAME MultiflowAdo2Ino
+   SHORT DESCRIPTION: 3 region model for Adenosine and
+   inosine with competitive transporter on cell membrane
+   and enzyme conversion of adenosine to inosine in the
+   cell in a 10 path heterogeneous flow model.
+*/
+//%GET Transit.mod curveStatJava()
+//%COM computes output area, system transit time,etc
+//
+//%SETGLOBALVAL %N%=("10")
+//%COM sets Number of flow paths
+//
+//%GET Multiflow.mpc main("NUMBER=%N%","Multiflow=MultiflowAdo2Ino")
+//% returns Fi1, Fi2 ... FiN
+//
+//%GET CodeLibrary.mod pdeDomains()
+//%COM Get N copies of Ado2Ino with
+//%COM real Flow = 1 ml/(g*min) removed
+//
+//%REPLACE %n%=("#1#%N%")
+//%GET NoFlowAdo2Ino.mod ado2inoModel("Flow=Fi%n%", 
+//% "Adoout=Adoout%n%", "Inoout=Inoout%n%", 
+//% "Adop=Adop%n%", "Adoi=Adoi%n%", "Adoc=Adoc%n%", 
+//% "Inop=Inop%n%", "Inoi=Inoi%n%", "Inoc=Inoc%n%",
+//% "TAdoi=TAdoi%n%", "TAdoc=TAdoc%n%",
+//% "TInoi=TInoi%n%", "TInoc=TInoc%n%",
+//% "Ti=Ti%n%", "Tc=Tc%n%",
+//% "Enz=Enz%n%", "ECmplx=ECmplx%n%")
+//%COM all parameters except Flow are identical
+//
+//%COM Collect the N outflows and calculate statistics
+//%REPLACE %AI%=("Ado","Ino")
+//%COLLECT("%AI%p%n%:t","%AI%outTot")
+// COLLECT OUTFLOWS SUMMED BY WEIGHTS
+real %AI%outTot(t) mM;
+real %AI%outw%n%(t) mM;
+%AI%outw%n% = %AI%out%n%*wts(%n%)*normf(%n%);
+%AI%outTot = %AI%outw%n%;
+//%GET Transit.mod transitCalc("Cin@t=%AI%in@t",
+//% "Cout@t=%AI%outTot@t","ai=ai%AI%","ti=ti%AI%",
+//% "RDi=RDi%AI%","ao=ao%AI%","tao=to%AI%",
+//% "RDo=RDo%AI%","tsys=tsys%AI%","RDsys=RDsys%AI%")
+//%ENDREPLACE
+//%ENDREPLACE
+}
