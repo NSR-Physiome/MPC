@@ -20,7 +20,7 @@ public class MPC {
     private ArrayList<String> inlines;     // Holds .mpc input file lines for processing
     private ArrayList<String> finalCode;   // Holds final MML code 
     String outputFile;
-    public static final String MPC_VERSION = "v1.01";
+    public static final String MPC_VERSION = "v1.02";
 
     public MPC(ArrayList<String> mpcLines, String outFile) {
 	try {	    
