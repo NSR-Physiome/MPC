@@ -74,8 +74,10 @@ public class RemoveDup  {
                             if( (mathflag) && (notdone) && (s2trim.startsWith("DIAGRAM") ) ) {notdone=false;}
                             if( (mathflag) && (notdone) && (s2trim.startsWith("DETAILED") ) ) {notdone=false;}
 			    if(s1.equals(s2) && mathflag && notdone && !s1trim.startsWith("+") && !s1trim.startsWith("-" )) { 
-                            copy1.set(j,remove); 
-                            if (s2.trim().length()>0) {System.out.println("deleting "+s2+" ");}
+ 
+                            if (s2.trim().length()>0) { // Do not delete blank lines
+								copy1.set(j,remove);  
+								System.out.println("deleting "+s2+" ");}
                             }
 			}
 		    }
