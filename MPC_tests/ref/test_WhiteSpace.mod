@@ -41,6 +41,7 @@ math hinch2004modules {
     real FVRT_Ca(t) dimensionless; // Convenience variable that is equal to (F*V/(R*T))*2
  
 
+
 // Put the currents together and external conc dependencies, etc:
 // Ca2+ current going into the cytoplasm is positive.
   real Iion(t) uA/cm^2;
@@ -48,5 +49,6 @@ math hinch2004modules {
   VV:t = if (clamp_0no_1yes = 0) (-minusI-Iion)/Cm else 0; // universal var
 Ca_i:t = betaCDMA*(I_RyR+I_LCC+ I_TRPN+ I_SR -I_NaCa - I_pCa+ I_CaB -I_SERCA );
 Ca_SR:t = (V_myo/VSR)* (-RyR +I_SERCA - I_SR); // signs??
+
 }
-// This MML file generated from test_WhiteSpace.mpc using MPC v1.0.
+// This MML file generated from test_WhiteSpace.mpc using MPC v1.02.
