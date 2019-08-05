@@ -1,2 +1,2 @@
-MPC.jar compiled using Java jdk 1.6
+MPC.jar compiled using Java jdk 1.8
 
