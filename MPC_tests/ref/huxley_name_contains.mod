@@ -27,11 +27,13 @@ math huxley_modules {
     real VK(t) mV;                  // Nernst potential
     VK = -(R*Temp/F)*ln(K_o/K_i);   // Nernst eq
 //%END externalInputsKChannel
+
 //
 // *** Potassium channel *** 
      real   gbarK    = 36 mmho/cm^2;   // max potassium conductance      
      real Kalphan0 = 0.1/(exp(1)-1)*(1 msec^(-1)),  // always use V=0
           Kbetan0  = 0.125 msec^(-1);               // to calculate i.c.
+
      // Variables for all the algebraic equations
      real IK(t) uA/cm^2,  // Ionic currents
           Kalphan(t) msec^(-1),   // rate constant of particles from out to in
@@ -43,6 +45,7 @@ math huxley_modules {
      real Kn(t);   // proportion of the particles in a certain position
       // IC:
       when (t=t.min) { Kn = Kalphan0/(Kalphan0+Kbetan0); }
+
       Kalphan  = (1 msec^-1)*(if (V/Vnorm = -10) 0.1
                   else   0.01*(V/Vnorm+10)/(exp((V/Vnorm+10)/10)-1));
       Kbetan   = (1 msec^-1)*(0.125*exp((V/Vnorm)/80));
@@ -51,9 +54,11 @@ math huxley_modules {
       gK      = gbarK  * Kn^4;
       IK      = gK  * (V-VK);
       Kn:t = phi*(Kalphan*(1-Kn)-Kbetan*Kn);
+
     real clamp_0no_1yes = 0;
     when (t=t.min) { VV = if (clamp_0no_1yes=0) Vdepolar  else Vclamp;  }
     V   = if (clamp_0no_1yes = 0) VV else Vclamp;   
+
     real Nainit_o = 600 mM;   // Init extramembrane conc, seawater
     real Nainit_i = 7 mM;     // Init innermembrane conc: No calc off of init nernst
     real Na_o(t) mM, Na_i(t) mM;
@@ -66,6 +71,7 @@ math huxley_modules {
        betam0  = 4 msec^(-1),
        alphah0 = 0.07 msec^(-1),
        betah0  = 1/(exp(3)+1) *(1 msec^(-1));
+
      //Variables for all the algebraic equations
   real INa(t) uA/cm^2,  // Ionic currents
        alpham(t) msec^(-1),   // rate constant of activating molecules from out to in
@@ -73,15 +79,18 @@ math huxley_modules {
        alphah(t) msec^(-1),   // rate constant of inactivating molecules from out to in
        betah(t) msec^(-1),    // rate constant of inactivating molecules from in to out
        gNa(t) mmho/cm^2;  // Sodium conductance
+
   real minf(t), hinf(t);
   private real taum(t) msec, tauh(t) msec;
   // State variables for all the ODEs
   real  m(t),   // proportion of activating molecules on the inside
         h(t);   // proportion of inactivating molecules on the outside
+
    when (t=t.min) {
        m = alpham0/(alpham0+betam0);
        h = alphah0/(alphah0+betah0);
      }
+
    alpham  = (1 msec^-1)*(if (V/Vnorm = -25) 1
               else 0.1*(V/Vnorm+25)/(exp((V/Vnorm+25)/10)-1));
    betam   = (1 msec^-1)*(4*exp((V/Vnorm)/18));
@@ -95,5 +104,12 @@ math huxley_modules {
    INa     = gNa * (V-VNa);
    m:t = phi*(alpham*(1-m)-betam*m);
    h:t = phi*(alphah*(1-h)-betah*h);
+
+
+
 }
-// This MML file generated from huxley_name_contains.mpc using MPC v1.0.
+
+
+
+
+// This MML file generated from huxley_name_contains.mpc using MPC v1.02.
